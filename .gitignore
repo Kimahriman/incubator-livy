@@ -31,3 +31,7 @@ python-api/dist
 .eggs
 *.egg-info
 *.egg
+
+.bloop
+.metals
+.vscode

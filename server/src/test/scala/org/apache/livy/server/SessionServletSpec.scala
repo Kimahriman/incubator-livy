@@ -247,21 +247,22 @@ class AclsEnabledSessionServletSpec extends BaseSessionServletSpec[Session, Reco
 
     it("should only allow view accessible users to see non-sensitive information") {
       jpost[MockSessionView]("/", Map(), headers = aliceHeaders) { res =>
-        jget[MockSessionView](s"/${res.id}", headers = bobHeaders) { res =>
-          assert(res.owner === "alice")
-          assert(res.proxyUser === Some("alice"))
-          // Other user cannot see the logs
-          assert(res.logs === Nil)
-        }
+        jget[MockSessionView](s"/${res.id}", expectedStatus = SC_FORBIDDEN,
+          headers = bobHeaders)(_)
+          // assert(res.owner === "alice")
+          // assert(res.proxyUser === Some("alice"))
+          // // Other user cannot see the logs
+          // assert(res.logs === Nil)
 
-        jget[MockSessionView](s"/${res.id}?doAs=bob", headers = adminHeaders) { res =>
-          assert(res.owner === "alice")
-          assert(res.proxyUser === Some("alice"))
-          // Other user cannot see the logs
-          assert(res.logs === Nil)
-        }
+        jget[MockSessionView](s"/${res.id}?doAs=bob", expectedStatus = SC_FORBIDDEN,
+          headers = adminHeaders)(_)
+        //   assert(res.owner === "alice")
+        //   assert(res.proxyUser === Some("alice"))
+        //   // Other user cannot see the logs
+        //   assert(res.logs === Nil)
+        // }
 
-        // Users with access permission could see the logs
+        // // Users with access permission could see the logs
         jget[MockSessionView](s"/${res.id}", headers = aliceHeaders) { res =>
           assert(res.logs === IndexedSeq("log"))
         }
@@ -279,14 +280,15 @@ class AclsEnabledSessionServletSpec extends BaseSessionServletSpec[Session, Reco
       }
 
       jpost[MockSessionView]("/?doAs=alice", Map(), headers = adminHeaders) { res =>
-        jget[MockSessionView](s"/${res.id}", headers = bobHeaders) { res =>
-          assert(res.owner === ADMIN)
-          assert(res.proxyUser === Some("alice"))
-          // Other user cannot see the logs
-          assert(res.logs === Nil)
-        }
+        jget[MockSessionView](s"/${res.id}", expectedStatus = SC_FORBIDDEN,
+          headers = bobHeaders)(_)
+      //     assert(res.owner === ADMIN)
+      //     assert(res.proxyUser === Some("alice"))
+      //     // Other user cannot see the logs
+      //     assert(res.logs === Nil)
+      //   }
 
-        // Users with access permission could see the logs
+      //   // Users with access permission could see the logs
         jget[MockSessionView](s"/${res.id}", headers = viewUserHeaders) { res =>
           assert(res.logs === IndexedSeq("log"))
         }

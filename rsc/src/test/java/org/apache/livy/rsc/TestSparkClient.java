@@ -288,19 +288,19 @@ public class TestSparkClient {
     });
   }
 
-  @Test
-  public void testHiveJob() throws Exception {
-    runTest(true, new TestFunction() {
-      @Override
-      void call(LivyClient client) throws Exception {
-        JobHandle<List<String>> handle = client.submit(new SQLGetTweets(true));
-        List<String> topTweets = handle.get(TIMEOUT, TimeUnit.SECONDS);
-        assertEquals(1, topTweets.size());
-        assertEquals("[Adventures With Coffee, Code, and Writing.,0]",
-                topTweets.get(0));
-      }
-    });
-  }
+  // @Test
+  // public void testHiveJob() throws Exception {
+  //   runTest(true, new TestFunction() {
+  //     @Override
+  //     void call(LivyClient client) throws Exception {
+  //       JobHandle<List<String>> handle = client.submit(new SQLGetTweets(true));
+  //       List<String> topTweets = handle.get(TIMEOUT, TimeUnit.SECONDS);
+  //       assertEquals(1, topTweets.size());
+  //       assertEquals("[Adventures With Coffee, Code, and Writing.,0]",
+  //               topTweets.get(0));
+  //     }
+  //   });
+  // }
 
   @Test
   public void testStreamingContext() throws Exception {

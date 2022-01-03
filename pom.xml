@@ -83,7 +83,7 @@
     <hadoop.scope>compile</hadoop.scope>
     <spark.scala-2.11.version>2.4.5</spark.scala-2.11.version>
     <spark.scala-2.12.version>2.4.5</spark.scala-2.12.version>
-    <spark.version>${spark.scala-2.11.version}</spark.version>
+    <spark.version>${spark.scala-2.12.version}</spark.version>
     <hive.version>3.0.0</hive.version>
     <commons-codec.version>1.9</commons-codec.version>
     <httpclient.version>4.5.3</httpclient.version>
@@ -106,8 +106,8 @@
     <py4j.version>0.10.7</py4j.version>
     <scala-2.11.version>2.11.12</scala-2.11.version>
     <scala-2.12.version>2.12.15</scala-2.12.version>
-    <scala.binary.version>2.11</scala.binary.version>
-    <scala.version>${scala-2.11.version}</scala.version>
+    <scala.binary.version>2.12</scala.binary.version>
+    <scala.version>${scala-2.12.version}</scala.version>
     <scalatest.version>3.0.8</scalatest.version>
     <scalatra.version>2.6.5</scalatra.version>
     <java.version>1.8</java.version>
@@ -204,18 +204,18 @@
     <module>client-common</module>
     <module>client-http</module>
     <module>core</module>
-    <module>core/scala-2.11</module>
+    <!-- <module>core/scala-2.11</module> -->
     <module>core/scala-2.12</module>
     <module>coverage</module>
     <module>examples</module>
     <module>python-api</module>
     <module>repl</module>
-    <module>repl/scala-2.11</module>
+    <!-- <module>repl/scala-2.11</module> -->
     <module>repl/scala-2.12</module>
     <module>rsc</module>
     <module>scala</module>
     <module>scala-api</module>
-    <module>scala-api/scala-2.11</module>
+    <!-- <module>scala-api/scala-2.11</module> -->
     <module>scala-api/scala-2.12</module>
     <module>server</module>
     <module>test-lib</module>
@@ -638,7 +638,7 @@
         <plugin>
           <groupId>net.alchim31.maven</groupId>
           <artifactId>scala-maven-plugin</artifactId>
-          <version>4.5.4</version>
+          <version>4.5.6</version>
           <executions>
             <execution>
               <goals>
@@ -1059,6 +1059,7 @@
         <property>
           <name>spark-3.0</name>
         </property>
+        <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
         <spark.scala-2.12.version>3.0.0</spark.scala-2.12.version>
@@ -1066,12 +1067,12 @@
         <spark.version>${spark.scala-2.11.version}</spark.version>
         <netty.spark-2.12.version>4.1.47.Final</netty.spark-2.12.version>
         <netty.spark-2.11.version>4.1.47.Final</netty.spark-2.11.version>
-        <netty.version>${netty.spark-2.11.version}</netty.version>
+        <netty.version>${netty.spark-2.12.version}</netty.version>
         <java.version>1.8</java.version>
         <py4j.version>0.10.9</py4j.version>
         <json4s.spark-2.11.version>3.5.3</json4s.spark-2.11.version>
         <json4s.spark-2.12.version>3.6.6</json4s.spark-2.12.version>
-        <json4s.version>${json4s.spark-2.11.version}</json4s.version>
+        <json4s.version>${json4s.spark-2.12.version}</json4s.version>
         <spark.bin.download.url>
           https://archive.apache.org/dist/spark/spark-3.0.0/spark-3.0.0-bin-hadoop2.7.tgz
         </spark.bin.download.url>

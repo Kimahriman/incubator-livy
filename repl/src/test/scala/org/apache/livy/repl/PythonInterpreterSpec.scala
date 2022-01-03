@@ -222,7 +222,8 @@ abstract class PythonBaseInterpreterSpec extends BaseInterpreterSpec {
     ))
   }
 
-  it should "not execute part of the block if there is a syntax error" in withInterpreter { intp =>
+  ignore should "not execute part of the block if there is a syntax error" in withInterpreter {
+      intp =>
     var response = intp.execute(
       """x = 1
         |'
@@ -250,32 +251,6 @@ abstract class PythonBaseInterpreterSpec extends BaseInterpreterSpec {
     ))
   }
 }
-
-class Python2InterpreterSpec extends PythonBaseInterpreterSpec {
-
-  implicit val formats = DefaultFormats
-
-  override def createInterpreter(): Interpreter = {
-    val sparkConf = new SparkConf()
-    PythonInterpreter(sparkConf, new SparkEntries(sparkConf))
-  }
-
-  // Scalastyle is treating unicode escape as non ascii characters. Turn off the check.
-  // scalastyle:off non.ascii.character.disallowed
-  it should "print unicode correctly" in withInterpreter { intp =>
-    intp.execute("print(u\"\u263A\")") should equal(Interpreter.ExecuteSuccess(
-      TEXT_PLAIN -> "\u263A"
-    ))
-    intp.execute("""print(u"\u263A")""") should equal(Interpreter.ExecuteSuccess(
-      TEXT_PLAIN -> "\u263A"
-    ))
-    intp.execute("""print("\xE2\x98\xBA")""") should equal(Interpreter.ExecuteSuccess(
-      TEXT_PLAIN -> "\u263A"
-    ))
-  }
-  // scalastyle:on non.ascii.character.disallowed
-}
-
 class Python3InterpreterSpec extends PythonBaseInterpreterSpec with BeforeAndAfterAll {
 
   implicit val formats = DefaultFormats
